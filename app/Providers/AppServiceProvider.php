@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Permission\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Paginator::useBootstrap();
+
+        $users = count(User::all());
+        $roles = count(Role::all());
+        view()->share('rolesAll', $roles);
+        view()->share('users', $users);
     }
 }

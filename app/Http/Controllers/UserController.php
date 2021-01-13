@@ -11,6 +11,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $data = User::orderBy('id', 'DESC')->paginate(5);
-        return view('users.index', compact(['data','users']));
+
+        $data = User::orderBy('id', 'DESC')->paginate(12);
+        return view('users.index', compact(['data']));
     }
 
     /**
@@ -30,16 +38,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', compact('roles', 'users'));
+        return view('users.create', compact('roles'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -78,12 +85,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $users = User::all();
         $user = User::findOrFail($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact(['user', 'users', 'roles', 'userRole']));
+        return view('users.edit',compact(['user', 'roles', 'userRole']));
     }
 
 

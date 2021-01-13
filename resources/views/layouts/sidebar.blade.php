@@ -59,20 +59,24 @@
                 <li class="header-menu">
                     <span>General</span>
                 </li>
-                <li class="active">
-                    <a href="{{ route('users.index') }}">
-                        <i class="fa fa-user"></i>
-                        <span class="menu-text">Usuários</span>
-                        <span class="badge badge-pill badge-primary">{{ count($users) }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('roles.index') }}">
-                        <i class="fa fa-book"></i>
-                        <span class="menu-text">Regras</span>
-                        <span class="badge badge-pill badge-primary">10</span>
-                    </a>
-                </li>
+                @can('user-list')
+                    <li class="{{ (request()->route()->getName()=='users.index' OR request()->route()->getName()=='users.create' OR request()->route()->getName()=='users.edit')? 'active' :'' }}">
+                        <a href="{{ route('users.index') }}">
+                            <i class="fa fa-user"></i>
+                            <span class="menu-text">Usuários</span>
+                            <span class="badge badge-pill badge-primary">{{ $users }}</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('role-list')
+                    <li class="{{ (request()->route()->getName()=='roles.index' OR request()->route()->getName()=='roles.create' OR request()->route()->getName()=='roles.edit' OR request()->route()->getName()=='roles.show')? 'active' :'' }}">
+                        <a href="{{ route('roles.index') }}">
+                            <i class="fa fa-book"></i>
+                            <span class="menu-text">Regras</span>
+                            <span class="badge badge-pill badge-primary">{{ $rolesAll }}</span>
+                        </a>
+                    </li>
+                @endcan
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="fa fa-tachometer-alt"></i>
