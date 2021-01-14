@@ -18,7 +18,7 @@
                     <div class="card-header titulo-table">
                         <h2 class="col-md-6">Contpermission de Permissões</h2>
                         <a class="btn btn-primary" href="{{ route('permissions.create') }}">
-                            <i class="fa fa-plus"> Nova Regra</i>
+                            <i class="fa fa-plus"> Nova Permissão</i>
                         </a>
                     </div>
 
@@ -33,7 +33,6 @@
                                         <tr>
                                             <th class="text-left">Nº</th>
                                             <th class="text-left">Nome</th>
-                                            <th class="text-left">Permissões</th>
                                             <th width="150px" class="text-center"></th>
                                         </tr>
                                         </thead>
@@ -43,16 +42,15 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $permission->name }}</td>
-                                                <td>
-
-                                                </td>
                                                 <td class="action">
                                                     <a class="btn btn-success btn-sm"
-                                                       href="{{ route('permissions.show', $permission->id) }}" title="visualizar"><i
+                                                       href="{{ route('permissions.show', $permission->id) }}"
+                                                       title="visualizar"><i
                                                                 class="fa fa-eye"></i></a>
                                                     @can('permission-edit')
                                                         <a class="btn btn-info btn-sm"
-                                                           href="{{ route('permissions.edit', $permission->id) }}" title="Editar"><i
+                                                           href="{{ route('permissions.edit', $permission->id) }}"
+                                                           title="Editar"><i
                                                                     class="fa fa-edit"></i></a>
                                                     @endcan
                                                     @can('permission-delete')
@@ -63,7 +61,7 @@
                                                             @method('DELETE')
                                                             <button type="button"
                                                                     onclick="event.preventDefault();
-                                                                            if(confirm('Deseja excluir {{ $permission->name }} \n {{$permission->nome}}?')){
+                                                                            if(confirm('Deseja excluir as permissões do Modelo \n {{ explode("-",$permission->name)[0] }}?')){
                                                                             document.getElementById('form-delete{{$permission->id}}').submit();
                                                                             }"
                                                                     class="btn btn-sm btn-danger"

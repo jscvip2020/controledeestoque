@@ -75,6 +75,7 @@
 
                                 <div class="col-md-6">
                                     <select name="roles[]" class="form-control @error('roles') is-invalid @enderror" multiple>
+                                        <option value=""></option>
                                         @foreach($roles as $key => $value)
                                             <option value="{{ $key }}" {{ in_array($key, $userRole) ? 'selected' : '' }}>{{ $value }}</option>
                                         @endforeach

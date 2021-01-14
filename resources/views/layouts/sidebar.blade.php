@@ -77,28 +77,38 @@
                         </a>
                     </li>
                 @endcan
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                        <i class="fa fa-tachometer-alt"></i>
-                        <span class="menu-text">Dashboard</span>
-                        <span class="badge badge-pill badge-warning">New</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="#">Dashboard 1
-                                    <span class="badge badge-pill badge-success">Pro</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard 3</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                {{--@can('permission-list')--}}
+                    <li class="{{ (request()->route()->getName()=='permissions.index' OR request()->route()->getName()=='permissions.create' OR request()->route()->getName()=='permissions.edit' OR request()->route()->getName()=='permissions.show')? 'active' :'' }}">
+                        <a href="{{ route('permissions.index') }}">
+                            <i class="fa fa-book"></i>
+                            <span class="menu-text">Permissões</span>
+                            <span class="badge badge-pill badge-primary">{{ $permissionsAll }}</span>
+                        </a>
+                    </li>
+                {{--@endcan--}}
+
+                {{--<li class="sidebar-dropdown">--}}
+                    {{--<a href="#">--}}
+                        {{--<i class="fa fa-tachometer-alt"></i>--}}
+                        {{--<span class="menu-text">Dashboard</span>--}}
+                        {{--<span class="badge badge-pill badge-warning">New</span>--}}
+                    {{--</a>--}}
+                    {{--<div class="sidebar-submenu">--}}
+                        {{--<ul>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">Dashboard 1--}}
+                                    {{--<span class="badge badge-pill badge-success">Pro</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">Dashboard 2</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">Dashboard 3</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</li>--}}
             </ul>
         </div>
         <!-- sidebar-menu  -->
